@@ -1,5 +1,5 @@
-
-// ProcessViewDlg.cpp : ÊµÏÖÎÄ¼ş
+ï»¿
+// ProcessViewDlg.cpp : å®ç°æ–‡ä»¶
 //
 
 #include "stdafx.h"
@@ -13,7 +13,7 @@
 #define MAX_NUM 400
 #define MAX_PATH 260
 
-// CProcessViewDlg ¶Ô»°¿ò
+// CProcessViewDlg å¯¹è¯æ¡†
 
 
 
@@ -40,20 +40,20 @@ BEGIN_MESSAGE_MAP(CProcessViewDlg, CDialog)
 END_MESSAGE_MAP()
 
 
-// CProcessViewDlg ÏûÏ¢´¦Àí³ÌĞò
+// CProcessViewDlg æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 BOOL CProcessViewDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// ÉèÖÃ´Ë¶Ô»°¿òµÄÍ¼±ê¡£µ±Ó¦ÓÃ³ÌĞòÖ÷´°¿Ú²»ÊÇ¶Ô»°¿òÊ±£¬¿ò¼Ü½«×Ô¶¯
-	//  Ö´ĞĞ´Ë²Ù×÷
-	SetIcon(m_hIcon, TRUE);			// ÉèÖÃ´óÍ¼±ê
-	SetIcon(m_hIcon, FALSE);		// ÉèÖÃĞ¡Í¼±ê
+	// è®¾ç½®æ­¤å¯¹è¯æ¡†çš„å›¾æ ‡ã€‚å½“åº”ç”¨ç¨‹åºä¸»çª—å£ä¸æ˜¯å¯¹è¯æ¡†æ—¶ï¼Œæ¡†æ¶å°†è‡ªåŠ¨
+	//  æ‰§è¡Œæ­¤æ“ä½œ
+	SetIcon(m_hIcon, TRUE);			// è®¾ç½®å¤§å›¾æ ‡
+	SetIcon(m_hIcon, FALSE);		// è®¾ç½®å°å›¾æ ‡
 
-	// TODO: ÔÚ´ËÌí¼Ó¶îÍâµÄ³õÊ¼»¯´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ é¢å¤–çš„åˆå§‹åŒ–ä»£ç 
 
-	//³õÊ¼»¯È«¾Ö±äÁ¿
+	//åˆå§‹åŒ–å…¨å±€å˜é‡
 	pProcessInfo = ProcessInfo;
 	pProcessInfo->Name_Pid.dwSize=sizeof(PROCESSENTRY32);
 	pModuleInfo = ModuleInfo;
@@ -64,54 +64,54 @@ BOOL CProcessViewDlg::OnInitDialog()
 	procNum = -1;
 	m_ImageList.Create(16,16,ILC_COLOR32,100,400);
 
-	//³õÊ¼»¯¿Ø¼ş¸ñÊ½
+	//åˆå§‹åŒ–æ§ä»¶æ ¼å¼
 	DWORD dwStyle = m_lProcess.GetExtendedStyle(); 
-	dwStyle |= LVS_EX_FULLROWSELECT;// Ñ¡ÖĞÄ³ĞĞÊ¹ÕûĞĞ¸ßÁÁ£¨Ö»ÊÊÓÃÓëreport ·ç¸ñµÄlistctrl £© 
-	dwStyle |= LVS_EX_SUBITEMIMAGES;//Ê¹¿ÉÒÔÉèÖÃÍ¼±ê
+	dwStyle |= LVS_EX_FULLROWSELECT;// é€‰ä¸­æŸè¡Œä½¿æ•´è¡Œé«˜äº®ï¼ˆåªé€‚ç”¨ä¸report é£æ ¼çš„listctrl ï¼‰ 
+	dwStyle |= LVS_EX_SUBITEMIMAGES;//ä½¿å¯ä»¥è®¾ç½®å›¾æ ‡
 	m_lProcess.SetExtendedStyle(dwStyle);
 	m_lThread.SetExtendedStyle(dwStyle);
 	m_lModule.SetExtendedStyle(dwStyle);
 
 	m_lProcess.SetImageList(&m_ImageList,LVSIL_SMALL);
 
-	m_lProcess.InsertColumn(0,_T("½ø³ÌÃû"));
+	m_lProcess.InsertColumn(0,_T("è¿›ç¨‹å"));
 	m_lProcess.InsertColumn(1,_T("PID"));
-	m_lProcess.InsertColumn(2,_T("ÓÃ»§Ãû"));
-	m_lProcess.InsertColumn(3,_T("ÓÅÏÈ¼¶"));
-	m_lProcess.InsertColumn(4,_T("½ø³ÌÂ·¾¶"));
+	m_lProcess.InsertColumn(2,_T("ç”¨æˆ·å"));
+	m_lProcess.InsertColumn(3,_T("ä¼˜å…ˆçº§"));
+	m_lProcess.InsertColumn(4,_T("è¿›ç¨‹è·¯å¾„"));
 	m_lProcess.SetColumnWidth(0,80);
 	m_lProcess.SetColumnWidth(1,40);
 	m_lProcess.SetColumnWidth(2,60);
 	m_lProcess.SetColumnWidth(3,50);
 	m_lProcess.SetColumnWidth(4,500);
 
-	m_lModule.InsertColumn(0,_T("Ä£¿é»ùÖ·"));
-	m_lModule.InsertColumn(1,_T("Ä£¿é´óĞ¡"));
-	m_lModule.InsertColumn(2,_T("Ä£¿éÓ³ÏñÂ·¾¶"));
+	m_lModule.InsertColumn(0,_T("æ¨¡å—åŸºå€"));
+	m_lModule.InsertColumn(1,_T("æ¨¡å—å¤§å°"));
+	m_lModule.InsertColumn(2,_T("æ¨¡å—æ˜ åƒè·¯å¾„"));
 	m_lModule.SetColumnWidth(0,80);
 	m_lModule.SetColumnWidth(1,80);
 	m_lModule.SetColumnWidth(2,480);
 
-	m_lThread.InsertColumn(0,_T("½ø³ÌCid"));
+	m_lThread.InsertColumn(0,_T("è¿›ç¨‹Cid"));
 	m_lThread.SetColumnWidth(0,500);
 
 
-	return TRUE;  // ³ı·Ç½«½¹µãÉèÖÃµ½¿Ø¼ş£¬·ñÔò·µ»Ø TRUE
+	return TRUE;  // é™¤éå°†ç„¦ç‚¹è®¾ç½®åˆ°æ§ä»¶ï¼Œå¦åˆ™è¿”å› TRUE
 }
 
-// Èç¹ûÏò¶Ô»°¿òÌí¼Ó×îĞ¡»¯°´Å¥£¬ÔòĞèÒªÏÂÃæµÄ´úÂë
-//  À´»æÖÆ¸ÃÍ¼±ê¡£¶ÔÓÚÊ¹ÓÃÎÄµµ/ÊÓÍ¼Ä£ĞÍµÄ MFC Ó¦ÓÃ³ÌĞò£¬
-//  Õâ½«ÓÉ¿ò¼Ü×Ô¶¯Íê³É¡£
+// å¦‚æœå‘å¯¹è¯æ¡†æ·»åŠ æœ€å°åŒ–æŒ‰é’®ï¼Œåˆ™éœ€è¦ä¸‹é¢çš„ä»£ç 
+//  æ¥ç»˜åˆ¶è¯¥å›¾æ ‡ã€‚å¯¹äºä½¿ç”¨æ–‡æ¡£/è§†å›¾æ¨¡å‹çš„ MFC åº”ç”¨ç¨‹åºï¼Œ
+//  è¿™å°†ç”±æ¡†æ¶è‡ªåŠ¨å®Œæˆã€‚
 
 void CProcessViewDlg::OnPaint()
 {
 	if (IsIconic())
 	{
-		CPaintDC dc(this); // ÓÃÓÚ»æÖÆµÄÉè±¸ÉÏÏÂÎÄ
+		CPaintDC dc(this); // ç”¨äºç»˜åˆ¶çš„è®¾å¤‡ä¸Šä¸‹æ–‡
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-		// Ê¹Í¼±êÔÚ¹¤×÷Çø¾ØĞÎÖĞ¾ÓÖĞ
+		// ä½¿å›¾æ ‡åœ¨å·¥ä½œåŒºçŸ©å½¢ä¸­å±…ä¸­
 		int cxIcon = GetSystemMetrics(SM_CXICON);
 		int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
@@ -119,7 +119,7 @@ void CProcessViewDlg::OnPaint()
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
 
-		// »æÖÆÍ¼±ê
+		// ç»˜åˆ¶å›¾æ ‡
 		dc.DrawIcon(x, y, m_hIcon);
 	}
 	else
@@ -128,13 +128,13 @@ void CProcessViewDlg::OnPaint()
 	}
 }
 
-//µ±ÓÃ»§ÍÏ¶¯×îĞ¡»¯´°¿ÚÊ±ÏµÍ³µ÷ÓÃ´Ëº¯ÊıÈ¡µÃ¹â±ê
-//ÏÔÊ¾¡£
+//å½“ç”¨æˆ·æ‹–åŠ¨æœ€å°åŒ–çª—å£æ—¶ç³»ç»Ÿè°ƒç”¨æ­¤å‡½æ•°å–å¾—å…‰æ ‡
+//æ˜¾ç¤ºã€‚
 HCURSOR CProcessViewDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
-//»ñÈ¡¿ÉÒÔOpenProcess()µÄÈ¨ÏŞ
+//è·å–å¯ä»¥OpenProcess()çš„æƒé™
 BOOL CProcessViewDlg::EnableDebugPrivilege()
 
 {
@@ -154,30 +154,30 @@ BOOL CProcessViewDlg::EnableDebugPrivilege()
 	}
 	return fOk;
 }
-//»ñÈ¡Ö¸¶¨½ø³ÌµÄÓÅÏÈ¼¶
+//è·å–æŒ‡å®šè¿›ç¨‹çš„ä¼˜å…ˆçº§
 CString CProcessViewDlg::GetPriority(HANDLE hProcess)
 {
-	DWORD dwPriClass = 0;//ÓÅÏÈ¼¶
+	DWORD dwPriClass = 0;//ä¼˜å…ˆçº§
 	dwPriClass = GetPriorityClass(hProcess);
 	switch(dwPriClass)
 	{
 	case HIGH_PRIORITY_CLASS:
-		return _T("¸ß");
+		return _T("é«˜");
 	case NORMAL_PRIORITY_CLASS:
-		return _T("Õı³£");
+		return _T("æ­£å¸¸");
 	case IDLE_PRIORITY_CLASS:
-		return _T("¿ÕÏĞ");
+		return _T("ç©ºé—²");
 	case REALTIME_PRIORITY_CLASS:
-		return _T("ÊµÊ±");
+		return _T("å®æ—¶");
 	case ABOVE_NORMAL_PRIORITY_CLASS:
-		return _T("½Ï¸ß");
+		return _T("è¾ƒé«˜");
 	case BELOW_NORMAL_PRIORITY_CLASS:
-		return _T("½ÏµÍ");
+		return _T("è¾ƒä½");
 	default:
-		return _T("ÆäËû");
+		return _T("å…¶ä»–");
 	}
 }
-//»ñÈ¡½ø³ÌÓÃ»§Ãû
+//è·å–è¿›ç¨‹ç”¨æˆ·å
 /*
 int CProcessViewDlg::GetUserName(HANDLE hProcess,TCHAR* userName,int strLen)
 {
@@ -237,7 +237,7 @@ CString CProcessViewDlg::GetProcessUserName(HANDLE hProcess)
 	{
 		bFuncReturn = ::OpenProcessToken(hProcess,TOKEN_QUERY,&hToken);
 
-		if( bFuncReturn == 0) // Ê§°Ü
+		if( bFuncReturn == 0) // å¤±è´¥
 		{
 			return strUserName;
 		}
@@ -286,11 +286,11 @@ CString CProcessViewDlg::GetProcessUserName(HANDLE hProcess)
 
 	return strUserName;
 }  
-//ÏÔÊ¾½ø³ÌµÄº¯Êı
+//æ˜¾ç¤ºè¿›ç¨‹çš„å‡½æ•°
 void  CProcessViewDlg::ShowProcess(PProcessInfomainton ProcessInfo)
 {
-	HANDLE snap;//¿ìÕÕ¾ä±ú
-	int i=0;//½ø³Ì¼ÆÊı
+	HANDLE snap;//å¿«ç…§å¥æŸ„
+	int i=0;//è¿›ç¨‹è®¡æ•°
 	DWORD BufferSize = MAX_PATH;
 	HANDLE hProcess = NULL;
 	HICON hIcon = NULL;
@@ -298,26 +298,26 @@ void  CProcessViewDlg::ShowProcess(PProcessInfomainton ProcessInfo)
 	CString priClass = _T("");
 
 
-	snap=CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0);//»ñÈ¡¿ìÕÕ
+	snap=CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0);//è·å–å¿«ç…§
 	if (snap==INVALID_HANDLE_VALUE)
 	{
-		MessageBox(_T("½ø³Ì¿ìÕÕÊ§°Ü"),_T("error"),MB_OK);
+		MessageBox(_T("è¿›ç¨‹å¿«ç…§å¤±è´¥"),_T("error"),MB_OK);
 	}
 
-	Process32First(snap,&ProcessInfo->Name_Pid);//²éÕÒµÚÒ»¸ö½ø³Ì£¬½«ĞÅÏ¢´æÈë½á¹¹Ìå
+	Process32First(snap,&ProcessInfo->Name_Pid);//æŸ¥æ‰¾ç¬¬ä¸€ä¸ªè¿›ç¨‹ï¼Œå°†ä¿¡æ¯å­˜å…¥ç»“æ„ä½“
 	PProcessInfomainton pPI  = ProcessInfo;
 
 	EnableDebugPrivilege();
 
 
-	do //Ñ­»·±éÀú½ø³Ì
+	do //å¾ªç¯éå†è¿›ç¨‹
 	{  
-		if (pPI->Name_Pid.th32ProcessID==0|pPI->Name_Pid.th32ProcessID==4)//ÎŞ·¨ÏÔÊ¾Â·¾¶µÄÁ½¸ö½ø³Ì£¨È¨ÏŞ²»¹»£©
+		if (pPI->Name_Pid.th32ProcessID==0|pPI->Name_Pid.th32ProcessID==4)//æ— æ³•æ˜¾ç¤ºè·¯å¾„çš„ä¸¤ä¸ªè¿›ç¨‹ï¼ˆæƒé™ä¸å¤Ÿï¼‰
 		{
 			continue;
 		}
 		hProcess=OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ,
-			FALSE,pPI->Name_Pid.th32ProcessID);//´ò¿ª½ø³Ì
+			FALSE,pPI->Name_Pid.th32ProcessID);//æ‰“å¼€è¿›ç¨‹
 
 		if (hProcess)
 		{
@@ -338,18 +338,18 @@ void  CProcessViewDlg::ShowProcess(PProcessInfomainton ProcessInfo)
 		m_lProcess.SetItemText(i,3,priClass);
 		m_lProcess.SetItemText(i,4,pPI->szPath);
 
-		CloseHandle(hProcess);//¹Ø±Õ¾ä±ú
+		CloseHandle(hProcess);//å…³é—­å¥æŸ„
 
 		i++;
 		pPI++;
-		pPI->Name_Pid.dwSize=sizeof(PROCESSENTRY32);//½«µÚI¸ö½á¹¹Ìå½øĞĞ³õÊ¼»¯
+		pPI->Name_Pid.dwSize=sizeof(PROCESSENTRY32);//å°†ç¬¬Iä¸ªç»“æ„ä½“è¿›è¡Œåˆå§‹åŒ–
 		wsprintf(pPI->szPath,_T(""));
-	} while (Process32Next(snap,&(pPI->Name_Pid)) );//µÃµ½ÏÂÒ»¸ö½ø³ÌĞÅÏ¢£¬´æÈë½á¹¹
-	CloseHandle(snap);//¹Ø±Õ¾ä±ú
+	} while (Process32Next(snap,&(pPI->Name_Pid)) );//å¾—åˆ°ä¸‹ä¸€ä¸ªè¿›ç¨‹ä¿¡æ¯ï¼Œå­˜å…¥ç»“æ„
+	CloseHandle(snap);//å…³é—­å¥æŸ„
 	procNum = i;
 }
 
-//ÏÔÊ¾Ö¸¶¨pidµÄÄ£¿é
+//æ˜¾ç¤ºæŒ‡å®špidçš„æ¨¡å—
 void CProcessViewDlg::ListModule(int Pid,MODULEENTRY32* pME)
 {
 	   HANDLE snap;
@@ -357,7 +357,7 @@ void CProcessViewDlg::ListModule(int Pid,MODULEENTRY32* pME)
 	   snap=CreateToolhelp32Snapshot(TH32CS_SNAPMODULE,Pid);
 	   if(!Module32First(snap,pME))
 	   {
-	   printf("Ä£¿é»ñÈ¡Ê§°Ü\n");
+	   printf("æ¨¡å—è·å–å¤±è´¥\n");
 	   }
 	   else{
 	   do 
@@ -378,7 +378,7 @@ void CProcessViewDlg::ListModule(int Pid,MODULEENTRY32* pME)
     
 }
 
-//ÏÔÊ¾Ïß³ÌµÄº¯Êı
+//æ˜¾ç¤ºçº¿ç¨‹çš„å‡½æ•°
 void CProcessViewDlg::ListThread(int Pid,THREADENTRY32* pTE)
 {
 	HANDLE snap;
@@ -407,14 +407,14 @@ void CProcessViewDlg::ListThread(int Pid,THREADENTRY32* pTE)
 }
 void CProcessViewDlg::OnBnClickedShow()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	ShowProcess(pProcessInfo);
 }
 
 void CProcessViewDlg::OnNMClickProcess(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	*pResult = 0;
 
 	POSITION ps;

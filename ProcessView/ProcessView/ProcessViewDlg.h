@@ -1,48 +1,48 @@
-
-// ProcessViewDlg.h : Í·ÎÄ¼ş
+ï»¿
+// ProcessViewDlg.h : å¤´æ–‡ä»¶
 //
 
 #pragma once
 #include "afxcmn.h"
 #define MAX_NUM 400
 #define MAX_PATH 260
-typedef struct ProcessInfomainton//½ø³ÌĞÅÏ¢½á¹¹Ìå£¬°üÀ¨½ø³ÌĞÅÏ¢½á¹¹£¬ºÍÒ»¸ö´æ·Å½ø³ÌÂ·¾¶µÄ×Ö·û´®Êı×é
+typedef struct ProcessInfomainton//è¿›ç¨‹ä¿¡æ¯ç»“æ„ä½“ï¼ŒåŒ…æ‹¬è¿›ç¨‹ä¿¡æ¯ç»“æ„ï¼Œå’Œä¸€ä¸ªå­˜æ”¾è¿›ç¨‹è·¯å¾„çš„å­—ç¬¦ä¸²æ•°ç»„
 {
 	PROCESSENTRY32 Name_Pid;
 	TCHAR szPath[MAX_PATH];
 }ProcessInfomainton,*PProcessInfomainton;
 
 
-// CProcessViewDlg ¶Ô»°¿ò
+// CProcessViewDlg å¯¹è¯æ¡†
 class CProcessViewDlg : public CDialog
 {
-// ¹¹Ôì
+// æ„é€ 
 public:
-	CProcessViewDlg(CWnd* pParent = NULL);	// ±ê×¼¹¹Ôìº¯Êı
+	CProcessViewDlg(CWnd* pParent = NULL);	// æ ‡å‡†æ„é€ å‡½æ•°
 
-// ¶Ô»°¿òÊı¾İ
+// å¯¹è¯æ¡†æ•°æ®
 	enum { IDD = IDD_PROCESSVIEW_DIALOG };
 
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV Ö§³Ö
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV æ”¯æŒ
 
 
-// ÊµÏÖ
+// å®ç°
 protected:
 	HICON m_hIcon;
 
-	// Éú³ÉµÄÏûÏ¢Ó³Éäº¯Êı
+	// ç”Ÿæˆçš„æ¶ˆæ¯æ˜ å°„å‡½æ•°
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	//ÁĞ±í¿Ø¼ş
+	//åˆ—è¡¨æ§ä»¶
 	CListCtrl m_lProcess;
 	CListCtrl m_lModule;
 	CListCtrl m_lThread;
 
-	//È«¾Ö±äÁ¿
+	//å…¨å±€å˜é‡
 	ProcessInfomainton ProcessInfo[MAX_NUM];
 	PProcessInfomainton pProcessInfo;
 	MODULEENTRY32 ModuleInfo[MAX_NUM];
